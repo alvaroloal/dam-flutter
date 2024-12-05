@@ -52,7 +52,7 @@ class _LoginGuiState extends State<LoginGui> {
                 const Text(
                   "Beautiful, Private Sharing",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.white54,
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
