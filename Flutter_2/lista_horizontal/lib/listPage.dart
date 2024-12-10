@@ -1,74 +1,153 @@
 import 'package:flutter/material.dart';
 
 class Listpage extends StatelessWidget {
-  const Listpage ({super.key});
+  const Listpage({super.key});
 
- @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    body: ListView(
-      key: GlobalKey(),
-      scrollDirection: Axis.horizontal, // por defecto es vertical
-      padding: const EdgeInsets.all(8.0),
-      children: [
-        // agregamos este espacio para que los widget empiecen abajo
-        // del área de configuraciones del dispositivo
-        const SizedBox(
-          height: 50,
-          width: 20,
-        ),
-        Container(
-          margin: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(150),
-                child: Image.network(
-                  'https://i.pinimg.com/originals/fb/ca/ab/fbcaabb97bf76a5fbb9497553b4817b5.jpg',
-                  height: 500,
-                ),
-              ),
-              const Text('Lucas', style: TextStyle(fontSize: 30),),
-              Text('Falla', style: TextStyle(fontSize: 20, color: Colors.black.withOpacity(0.5)),),
-
-            ],
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.white, Color(0xFFECEFF1)],
           ),
         ),
-        Container(
-          margin: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(150),
-                child: Image.network(
-                  'https://i.pinimg.com/originals/fb/ca/ab/fbcaabb97bf76a5fbb9497553b4817b5.jpg',
-                  height: 500,
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 50),
+            // header
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Best Iranian Actors and Actresses",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    "March 2020",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
               ),
-              const Text('David', style: TextStyle(fontSize: 30),),
-              Text('Falla', style: TextStyle(fontSize: 20, color: Colors.black.withOpacity(0.5)),),
-
-            ],
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(150),
-                child: Image.network(
-                  'https://i.pinimg.com/originals/fb/ca/ab/fbcaabb97bf76a5fbb9497553b4817b5.jpg',
-                  height: 500,
-                ),
+            ),
+            const SizedBox(height: 20),
+            // lista de actores horizontal
+            Expanded(
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                children: const [
+                  ActorCard(
+                    imageUrl:
+                        'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/lbsd2lAIQq4egOUXDIfjhte12vv.jpg',
+                    firstName: 'Golshifteh',
+                    lastName: 'Farahani',
+                  ),
+                  ActorCard(
+                    imageUrl:
+                        'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/jQR1a4NH6dYPzCrrS22pJAMh8Ww.jpg',
+                    firstName: 'Navid',
+                    lastName: 'Mohammadzadeh',
+                  ),
+                  ActorCard(
+                    imageUrl:
+                        'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/iMDMsfjK00B9ZsswRFWfKPyXR9R.jpg',
+                    firstName: 'Shahab',
+                    lastName: 'Hosseini',
+                  ),
+                ],
               ),
-              const Text('Alvaro', style: TextStyle(fontSize: 30),),
-              Text('Castilla', style: TextStyle(fontSize: 20, color: Colors.black.withOpacity(0.5)),),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
-    ),
-  );
+      ),
+      //barra nav de abajo
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: "Booking",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: "List",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          ),
+        ],
+      ),
+    );
+  }
 }
+
+class ActorCard extends StatelessWidget {
+  final String imageUrl;
+  final String firstName;
+  final String lastName;
+
+  const ActorCard({
+    super.key,
+    required this.imageUrl,
+    required this.firstName,
+    required this.lastName,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(150),
+            child: Container(
+              color: Colors.grey.shade200,
+              child: Image.network(
+                imageUrl,
+                height: 300,
+                width: 150,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            firstName,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            lastName,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black.withOpacity(0.6),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
