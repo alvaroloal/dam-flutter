@@ -11,7 +11,7 @@ class Listpage extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.white, Color(0xFFECEFF1)],
+            colors: [Colors.white, Color.fromARGB(255, 116, 114, 114)],
           ),
         ),
         child: Column(
@@ -27,9 +27,9 @@ class Listpage extends StatelessWidget {
                   Text(
                     "Best Iranian Actors and Actresses",
                     style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Raleway'),
                   ),
                   SizedBox(height: 5),
                   Text(
@@ -66,6 +66,12 @@ class Listpage extends StatelessWidget {
                         'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/iMDMsfjK00B9ZsswRFWfKPyXR9R.jpg',
                     firstName: 'Shahab',
                     lastName: 'Hosseini',
+                  ),
+                  ActorCard(
+                    imageUrl:
+                        'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/gahTwww7GWWg1kZmLTfFB8XgSB1.jpg',
+                    firstName: 'Saba',
+                    lastName: 'Kamali',
                   ),
                 ],
               ),
