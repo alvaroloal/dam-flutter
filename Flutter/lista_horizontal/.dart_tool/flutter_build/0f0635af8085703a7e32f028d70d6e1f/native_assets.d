@@ -1,0 +1,1 @@
+ C:\\Users\\lorente.alalv24_tria\\Desktop\\dam-flutter\\Flutter\\lista_horizontal\\.dart_tool\\flutter_build\\0f0635af8085703a7e32f028d70d6e1f\\native_assets.yaml: 
