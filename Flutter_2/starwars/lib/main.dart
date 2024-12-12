@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:starwhat/screens/people_screen.dart';
+import 'package:starwars/screens/people_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,10 +8,11 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'STAR WHAT?',
+      title: 'Star Wars',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -20,3 +21,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
