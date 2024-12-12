@@ -125,15 +125,15 @@ class _PeopleScreenState extends State<PeopleScreen> {
               Container(
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
-                  color: Colors.black87,
+                  color: const Color.fromARGB(221, 59, 59, 59),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   peopleResponse.results![index].name!,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Color.fromARGB(255, 219, 169, 0),
                     fontFamily: 'StarJedi',
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -146,7 +146,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
                 child: Text(
                   peopleResponse.results![index].gender!,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Color.fromARGB(255, 255, 255, 255),
                     fontFamily: 'StarJedi',
                     fontSize: 14,
                   ),
