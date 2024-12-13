@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:starwars/models/people_response/people_response.dart';
 import 'package:http/http.dart' as http;
+import 'package:starwars/screens/people_detail_screen.dart';
 
 class PeopleScreen extends StatefulWidget {
   const PeopleScreen({super.key});
@@ -55,7 +56,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'StarJedi',
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -64,7 +65,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
                       'Explora los personajes del universo de Star Wars.',
                       style: TextStyle(
                         color: Colors.white70,
-                        fontSize: 16,
+                        fontSize: 15,
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -107,52 +108,63 @@ class _PeopleScreenState extends State<PeopleScreen> {
       itemCount: peopleResponse.results!.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.network(
-                  'https://starwars-visualguide.com/assets/img/characters/${index + 1}.jpg',
-                  width: 160,
-                  height: 240,
-                  fit: BoxFit.cover,
-                ),
+        final person = peopleResponse.results![index];
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PeopleDetailScreen(person: person),
               ),
-              const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(221, 59, 59, 59),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  peopleResponse.results![index].name!,
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 219, 169, 0),
-                    fontFamily: 'StarJedi',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+            );
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.network(
+                    'https://starwars-visualguide.com/assets/img/characters/${index + 1}.jpg',
+                    width: 160,
+                    height: 240,
+                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  peopleResponse.results![index].gender!,
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    fontFamily: 'StarJedi',
-                    fontSize: 14,
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(221, 59, 59, 59),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    person.name!,
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 219, 169, 0),
+                      fontFamily: 'StarJedi',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            ],
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    person.gender!,
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      fontFamily: 'StarJedi',
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
