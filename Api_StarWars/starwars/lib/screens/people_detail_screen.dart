@@ -12,6 +12,8 @@ class PeopleDetailScreen extends StatefulWidget {
 class _PeopleDetailScreenState extends State<PeopleDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    final characterId = _extractIdFromUrl(widget.peopleItem.url!);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -34,46 +36,24 @@ class _PeopleDetailScreenState extends State<PeopleDetailScreen> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: Center(
-          child: Container(
-            margin: const EdgeInsets.all(30),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.network(
-                    'https://starwars-visualguide.com/assets/img/characters/${_extractIdFromUrl(widget.peopleItem.url!)}.jpg',
-                  ),
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Hero(
+                  tag: 'character_$characterId',
+                  child: _buildCharacterImage(),
                 ),
-                Text(
-                  'Name: ${widget.peopleItem.name}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'StarJedi',
-                  ),
-                ),
-                Text(
-                  'Height: ${widget.peopleItem.height}',
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 201, 186, 55),
-                    fontFamily: 'StarJedi',
-                  ),
-                ),
-                Text(
-                  'Mass: ${widget.peopleItem.mass}',
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 201, 186, 55),
-                    fontFamily: 'StarJedi',
-                  ),
-                ),
-                Text(
-                  'Hair Color: ${widget.peopleItem.hairColor}',
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 201, 186, 55),
-                    fontFamily: 'StarJedi',
-                  ),
-                ),
+                const SizedBox(height: 20),
+                _buildInfoRow('Name', widget.peopleItem.name!, Colors.white),
+                _buildInfoRow('Height', widget.peopleItem.height!,
+                    const Color.fromARGB(255, 201, 186, 55)),
+                _buildInfoRow('Mass', widget.peopleItem.mass!,
+                    const Color.fromARGB(255, 201, 186, 55)),
+                _buildInfoRow('Hair Color', widget.peopleItem.hairColor!,
+                    const Color.fromARGB(255, 201, 186, 55)),
               ],
             ),
           ),
@@ -82,9 +62,61 @@ class _PeopleDetailScreenState extends State<PeopleDetailScreen> {
     );
   }
 
+  Widget _buildCharacterImage() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(30),
+      child: Image.network(
+        'https://starwars-visualguide.com/assets/img/characters/${_extractIdFromUrl(widget.peopleItem.url!)}.jpg',
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Center(
+            child: CircularProgressIndicator(
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      (loadingProgress.expectedTotalBytes ?? 1)
+                  : null,
+            ),
+          );
+        },
+        errorBuilder: (context, error, stackTrace) => const Icon(
+          Icons.error,
+          color: Colors.red,
+          size: 100,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(String label, String value, Color valueColor) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'StarJedi',
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              color: valueColor,
+              fontFamily: 'StarJedi',
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   String _extractIdFromUrl(String url) {
     final regex = RegExp(r'people/(\d+)/');
     final match = regex.firstMatch(url);
-    return match!.group(1)!;
+    return match?.group(1) ?? '0';
   }
 }

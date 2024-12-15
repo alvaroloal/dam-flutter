@@ -22,69 +22,99 @@ class _PeopleScreenState extends State<PeopleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 12, 12, 12),
-        title: Center(
-          child: Image.network(
-            'https://logodownload.org/wp-content/uploads/2015/12/star-wars-logo-3-1.png',
-            width: 100,
+    return DefaultTabController(
+      length: 3, // número de pestañas
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 12, 12, 12),
+          title: Center(
+            child: Image.network(
+              'https://logodownload.org/wp-content/uploads/2015/12/star-wars-logo-3-1.png',
+              width: 100,
+            ),
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            _buildPeopleBody(),
+            const Center(
+                child:
+                    Text("Página películas", style: TextStyle(fontSize: 20))),
+            const Center(
+                child: Text("Página perfil", style: TextStyle(fontSize: 20))),
+          ],
+        ),
+        bottomNavigationBar: Container(
+          color: const Color.fromARGB(255, 70, 69, 69),
+          child: const TabBar(
+            labelColor: Color.fromARGB(255, 219, 169, 0),
+            unselectedLabelColor: Colors.white,
+            indicatorColor: Color.fromARGB(255, 214, 214, 211),
+            //Color.fromARGB(255, 219, 169, 0),
+            tabs: [
+              Tab(icon: Icon(Icons.people_alt_sharp), text: "Personajes"),
+              Tab(icon: Icon(Icons.movie_sharp), text: "Películas"),
+              Tab(icon: Icon(Icons.account_circle_sharp), text: "Perfil"),
+            ],
           ),
         ),
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 199, 198, 198),
-              Color.fromARGB(255, 40, 10, 61),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+    );
+  }
+
+  Widget _buildPeopleBody() {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color.fromARGB(255, 199, 198, 198),
+            Color.fromARGB(255, 40, 10, 61),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
-        height: double.infinity,
-        child: FutureBuilder<PeopleResponse>(
-          future: peopleResponse,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: const Text(
-                        'Personajes Star Wars',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'StarJedi',
-                          fontSize: 20,
-                        ),
+      ),
+      height: double.infinity,
+      child: FutureBuilder<PeopleResponse>(
+        future: peopleResponse,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    child: const Text(
+                      'Personajes Star Wars',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'StarJedi',
+                        fontSize: 20,
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 100),
-                      width: double.infinity,
-                      height: 300,
-                      child: _buildPeopleList(context, snapshot.data!),
-                    ),
-                  ],
-                ),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  'Error: ${snapshot.error}',
-                  style: const TextStyle(color: Colors.redAccent),
-                ),
-              );
-            }
-
-            return const Center(
-              child: CircularProgressIndicator(),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    width: double.infinity,
+                    height: 300,
+                    child: _buildPeopleList(context, snapshot.data!),
+                  ),
+                ],
+              ),
             );
-          },
-        ),
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                'Error: ${snapshot.error}',
+                style: const TextStyle(color: Color.fromARGB(255, 243, 21, 21)),
+              ),
+            );
+          }
+
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
@@ -115,6 +145,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
   }
 
   Widget _buildPeopleItem(BuildContext context, People people) {
+    final characterId = _extractIdFromUrl(people.url!);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -129,11 +160,14 @@ class _PeopleScreenState extends State<PeopleScreen> {
           children: [
             Stack(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.network(
-                    'https://starwars-visualguide.com/assets/img/characters/${_extractIdFromUrl(people.url!)}.jpg',
-                    width: 200,
+                Hero(
+                  tag: 'character_$characterId',
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: Image.network(
+                      'https://starwars-visualguide.com/assets/img/characters/$characterId.jpg',
+                      width: 200,
+                    ),
                   ),
                 ),
                 Positioned(
