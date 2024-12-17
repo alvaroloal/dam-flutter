@@ -22,12 +22,11 @@ class _MoviescreenState extends State<Moviescreen> {
     movieListResponse = getMovies();
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Movies'),
+        title: const Text('Popular Movies'),
       ),
       body: Center(
         child: FutureBuilder<MovieListResponse>(
@@ -39,7 +38,8 @@ class _MoviescreenState extends State<Moviescreen> {
                 child: Row(
                   children: snapshot.data!.movieList!.map((movie) {
                     return Card(
-                      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 15),
                       child: Container(
                         width: 200,
                         height: 450,
@@ -68,7 +68,8 @@ class _MoviescreenState extends State<Moviescreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Text(
                                 movie.overview!,
                                 maxLines: 3,
@@ -97,7 +98,8 @@ class _MoviescreenState extends State<Moviescreen> {
         'https://api.themoviedb.org/3/movie/popular?api_key=330dac319c12144e2cfd7dfb4bfcb9fd'));
 
     if (response.statusCode == 200) {
-      return MovieListResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+      return MovieListResponse.fromJson(
+          json.decode(response.body) as Map<String, dynamic>);
     } else {
       throw Exception('Failed to load movies');
     }
