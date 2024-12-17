@@ -38,9 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSectionTitle('Popular Movies'),
+            _buildSectionTitle('Películas populares'),
             _buildHorizontalList(_popularMovies, 'title'),
-            _buildSectionTitle('Popular Actors'),
+            _buildSectionTitle('Actores populares'),
             _buildHorizontalList(_popularActors, 'name'),
           ],
         ),
