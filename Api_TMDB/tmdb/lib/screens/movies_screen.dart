@@ -30,7 +30,13 @@ class _MoviesScreenState extends State<MoviesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Peliculas')),
+      appBar: AppBar(
+        title: const Text(
+          'Peliculas',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+        ),
+        backgroundColor: Colors.deepPurpleAccent,
+      ),
       body: ListView.builder(
         itemCount: _popularMovies.length,
         itemBuilder: (context, index) {
