@@ -3,8 +3,7 @@ import 'package:http/http.dart' as http;
 
 class TMDBService {
   static const String _baseUrl = 'https://api.themoviedb.org/3';
-  static const String _apiKey =
-      'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1OTYyNzFmODUxYTlkZWEyNmVkNjM5ODgyMTIzZWJmMSIsIm5iZiI6MTczMTMxMzA5NS4yNDE5OTk5LCJzdWIiOiI2NzMxYmRjN2YzZWFmYzUyMDFmZDQwYTMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.UhzGsvUfhtxd5Tj9X4maTb2-m7iInID6XbtGMeJYTyg';
+  static const String _apiKey = '330dac319c12144e2cfd7dfb4bfcb9fd';
 
   Future<List<dynamic>> fetchPopularMovies() async {
     final response =

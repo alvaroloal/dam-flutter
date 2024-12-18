@@ -58,7 +58,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               ),
             ],
             currentIndex: _selectedIndex,
-            selectedItemColor: Colors.blueAccent,
+            selectedItemColor: Colors.deepPurpleAccent,
             unselectedItemColor: Colors.grey,
             selectedLabelStyle:
                 const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
