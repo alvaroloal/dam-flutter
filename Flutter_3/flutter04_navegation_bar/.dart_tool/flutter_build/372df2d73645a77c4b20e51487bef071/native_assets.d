@@ -1,1 +1,0 @@
- C:\\Users\\alvar\\proyectos\\dam-flutter\\Flutter_3\\flutter04_navegation_bar\\.dart_tool\\flutter_build\\372df2d73645a77c4b20e51487bef071\\native_assets.yaml: 
