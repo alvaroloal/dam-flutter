@@ -3,6 +3,8 @@ import 'home_screen.dart';
 import 'movies_screen.dart';
 
 class MainMenuScreen extends StatefulWidget {
+  const MainMenuScreen({super.key});
+
   @override
   _MainMenuScreenState createState() => _MainMenuScreenState();
 }
@@ -62,7 +64,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             unselectedItemColor: Colors.grey,
             selectedLabelStyle:
                 const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            unselectedLabelStyle: TextStyle(fontSize: 12),
+            unselectedLabelStyle: const TextStyle(fontSize: 12),
             backgroundColor: Colors.white,
             elevation: 10,
             onTap: _onItemTapped,

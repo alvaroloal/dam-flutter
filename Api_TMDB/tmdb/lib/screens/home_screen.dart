@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../services/tmdb_service.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -84,8 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildHorizontalList(List<dynamic> items, String key, bool isMovie) {
     return SizedBox(
-      height:
-          240, // Aumentar la altura de la lista horizontal para hacer las tarjetas más grandes
+      height: 240,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: items.length,

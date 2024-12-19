@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../services/tmdb_service.dart';
 
 class MoviesScreen extends StatefulWidget {
+  const MoviesScreen({super.key});
+
   @override
   _MoviesScreenState createState() => _MoviesScreenState();
 }
@@ -114,7 +116,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              'Fecha: ${_popularMovies[index]['release_date'] ?? 'Desconocida'}',
+                              'Fecha estreno: ${_popularMovies[index]['release_date'] ?? 'Desconocida'}',
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey,
